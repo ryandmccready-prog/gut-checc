@@ -1,0 +1,109 @@
+---
+description: Gut Checc Scoring — Rubrics for Skills, Claude Code projects, and Cowork. Referenced during scoring phase.
+globs:
+---
+
+# Gut Checc — Scoring
+
+100 points total. 4 categories at 25 points each. Different categories per mode. Always four. Always out of 25. No exceptions, no N/A, no redistributing.
+
+Scores are honest. Low scores are starting points, not insults.
+
+## Skill Scoring
+
+**Instructions (25):** Are the rules specific enough AND bounded enough to prevent drift?
+- 0-5: Vague adjectives only. "Be professional." No constraints or boundaries defined.
+- 6-10: Mix of specific and vague. Some constraints but key drift risks uncovered.
+- 11-16: Mostly specific instructions with clear boundaries. A few ambiguous spots remain.
+- 17-21: Clear, actionable rules throughout. Strong "don'ts" that prevent common drift patterns.
+- 22-25: Every instruction is specific. Every boundary is clear. Claude has no room to wander.
+
+**Examples (25):** Are there input/output examples to anchor behavior?
+- 0-5: Zero examples anywhere in the Skill.
+- 6-10: One basic example covering only the happy path.
+- 11-16: A couple examples but missing edge cases or variety.
+- 17-21: Multiple examples covering different scenarios and formats.
+- 22-25: Diverse examples including edge cases that fully anchor Claude's output.
+
+**Edge Cases (25):** Does it handle unexpected, messy, or missing input?
+- 0-5: No mention of what to do with unexpected input.
+- 6-10: Acknowledges input exists but doesn't handle variations.
+- 11-16: Handles some edge cases. Obvious gaps remain.
+- 17-21: Covers most real-world scenarios. Minor blind spots.
+- 22-25: Comprehensive. Empty, weird, oversized, off-format, and missing content all handled.
+
+**Usability (25):** Could someone new use this without confusion?
+- 0-5: No usage guidance. No description. User has to guess everything.
+- 6-10: Basic "paste your stuff" instruction. Vague description field. No context on what to expect.
+- 11-16: Clear entry point and decent description. Some ambiguity about what to expect from output.
+- 17-21: Good onboarding. Description triggers correctly. User knows what to provide and expect.
+- 22-25: Seamless. Description nails the trigger. Globs set intentionally. New user knows exactly what to do and what they'll get.
+
+## Claude Code Project Scoring
+
+**Functionality (25):** Does it work and handle real-world usage?
+- 0-5: Broken or critically incomplete. Won't run. Key features TODO'd.
+- 6-10: Runs on the happy path but no error handling. Crashes on unexpected input.
+- 11-16: Core works. Some error handling. A few edge cases would still crash or produce garbage.
+- 17-21: Works reliably. Thoughtful error handling with clear messages. Most scenarios covered.
+- 22-25: Solid and resilient. Graceful failures. Handles real messy usage.
+
+**Shareability (25):** Could someone else clone and run this?
+- 0-5: Hardcoded paths. No README. No dependency list. Builder's machine only.
+- 6-10: README exists but missing setup steps or dependency info.
+- 11-16: README and dependencies listed. Some assumptions about the user's environment.
+- 17-21: Clear setup instructions. Env example file. Entry point obvious.
+- 22-25: Clone, follow steps, running in under 5 minutes. Everything documented.
+
+**Security (25):** Are secrets, keys, and dependencies handled properly?
+- 0: API keys hardcoded in source code. Automatic zero.
+- 1-7: Keys in code but mentioned as something to change. Or env vars used but no .env.example or .gitignore.
+- 8-14: Proper env handling. .gitignore set. Missing .env.example or documentation about what's needed.
+- 15-21: Full env setup with example file, gitignore, and documented. Minor gaps.
+- 22-25: Security-conscious throughout. No secrets in code. Proper gitignore. Fully documented. Dependencies pinned.
+
+**Value (25):** Is this worth building and does it solve a real recurring problem?
+- 0-5: One-time demo. No reason to use it again. Could do this faster by asking Claude in chat.
+- 6-10: Solves something real but very narrow. Marginal advantage over just prompting Claude directly.
+- 11-16: Useful for a recurring task. Clear advantage over manual approach.
+- 17-21: Real recurring value. Builder or others would use this regularly. Output is structured and usable.
+- 22-25: Obvious pain point solved. Clear time savings. Output feeds into a real workflow.
+
+## Cowork Scoring
+
+**Task Definition (25):** Are inputs and outputs specifically defined?
+- 0-5: Vague task like "help me with marketing." No defined inputs or outputs.
+- 6-10: Task described but inputs loose. Output format described in words but never shown.
+- 11-16: Inputs specified. Output format partially shown. Some ambiguity remains.
+- 17-21: Both inputs and outputs clearly defined. Output template shown.
+- 22-25: Locked down. Exact input expectations. Exact output format shown with examples.
+
+**Consistency (25):** Does it produce reliable, consistent output across runs?
+- 0-5: Output format and structure shifts every run. Vague instructions cause constant drift.
+- 6-10: Mostly consistent structure. Tone, depth, or formatting varies.
+- 11-16: Reliable structure. Some drift in details or edge cases.
+- 17-21: Highly consistent. Strong constraints lock the output down. Minimal variance.
+- 22-25: Same structure, depth, and quality every time. Constraints and examples eliminate drift.
+
+**Time Value (25):** Does this genuinely save time over doing it manually?
+- 0-5: Slower than manual when you include setup and verification.
+- 6-10: Marginal time savings. Close to break-even.
+- 11-16: Saves real time on most runs. Setup cost is reasonable.
+- 17-21: Clear time winner. Obviously faster than manual every time.
+- 22-25: Massive time savings. No question this should be automated.
+
+**Usability (25):** Could someone else use this and does it handle varied input?
+- 0-5: Only the builder can use it. No edge case handling. Tribal knowledge required.
+- 6-10: Another person could figure it out with help. No handling for varied input.
+- 11-16: Documented enough for someone to try. Handles some input variations.
+- 17-21: Clear instructions. Handles most real-world input variations. Someone else could run it independently.
+- 22-25: Self-explanatory. Handles edge cases gracefully. A stranger could run it cold on weird input and get useful output.
+
+## Score Display Rules
+
+- Always show total and all four categories.
+- Always out of 25. Never out of 20. Never redistribute.
+- Round to whole numbers. No decimals.
+- On re-runs, show the delta: "42 → 67 (+25)"
+- Category deltas too: "Instructions: 8 → 18 · Examples: 3 → 16"
+- A score under 30 is normal for a first build. Frame it as a starting line, never a failure.

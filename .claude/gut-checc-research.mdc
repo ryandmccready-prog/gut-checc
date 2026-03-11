@@ -1,0 +1,69 @@
+---
+description: Gut Checc Research Protocol — When and how to pull external docs. Only used when the Knowledge Base doesn't cover something.
+globs:
+---
+
+# Gut Checc — Research Protocol
+
+Most findings use the Knowledge Base (gut-checc-knowledge.mdc). This protocol is for when the project touches external stuff that needs live verification.
+
+## When to Research
+
+**Go external when:**
+- Project uses a specific third-party API (verify endpoints, auth, rate limits)
+- A package or library is referenced where version or current syntax matters
+- An Anthropic feature is used that might have changed recently (MCP, tool use, new capabilities)
+- Project integrates with a platform (Notion, Slack, Sheets, Zapier, etc.)
+- You're genuinely unsure if something still works the way you think it does
+
+**Skip research when:**
+- The finding is about structure, examples, constraints, or edge cases (Knowledge Base covers this)
+- The project is self-contained with no external dependencies
+- The principle behind the finding is universal and well-established
+
+## Where to Look
+
+### Tier 1: Anthropic Official
+- docs.anthropic.com — main docs
+- docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview — prompt engineering hub
+- docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/multishot-prompting — examples and few-shot
+- docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices — latest best practices
+- docs.anthropic.com/en/docs/claude-code — Claude Code specific
+- docs.anthropic.com/en/docs/build-with-claude/tool-use — MCP and tools
+- docs.anthropic.com/en/api — API reference
+- support.anthropic.com — help center
+- community.anthropic.com — forums, known issues
+
+### Tier 2: Third-Party Official
+- Official API docs for the specific tool (not blog posts)
+- GitHub repos for open source packages (check issues)
+- Changelog or release notes for breaking changes
+
+### Tier 3: Community (use carefully)
+- High-star GitHub repos using similar approaches
+- Stack Overflow for specific patterns
+- Only when Tier 1 and 2 don't cover it
+
+## Search Patterns
+- `[tool name] + [specific feature] + "documentation"`
+- `[tool name] + "breaking changes" + [current year]`
+- `[package name] + "known issues"`
+- `[Anthropic feature] + "best practices"`
+
+## How Research Shows Up
+
+Research goes into Learn Why sections. Translate it to plain language. Never dump raw docs at the builder.
+
+**Good:** "The Notion API requires an integration token for auth. Right now there's no auth setup here."
+**Bad:** Pasting three paragraphs from the Notion docs.
+
+## Speed Rules
+
+- Front-load all research before writing findings. Don't research one finding at a time.
+- Don't re-research within a session. If you already checked a source, reuse what you found.
+- If research returns nothing useful, say so. "Worth checking [URL] yourself."
+- If a finding stands without external verification, skip the lookup.
+
+## The Standard
+
+If a builder asks "how do you know that?" you should be able to point to a source. If you can't, the finding isn't ready.

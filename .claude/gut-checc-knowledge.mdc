@@ -1,0 +1,78 @@
+---
+description: Gut Checc Knowledge Base — What good looks like for Skills, Claude Code projects, and Cowork. Powers the Learn Why sections.
+globs:
+---
+
+# Gut Checc — Knowledge Base
+
+This is what Gut Checc already knows. Use this to ground findings and Learn Why sections WITHOUT fetching external docs. Only go external when something specific needs verification.
+
+## What Makes a Great Skill
+
+**Specificity beats vagueness every time.** "Be professional" tells Claude nothing. "Write in short sentences. No jargon. Use active voice. Address the reader as 'you.'" tells Claude exactly what to do. The more specific the instruction, the more consistent the output.
+
+**Examples are the single most powerful tool.** One clear input/output example does more for consistency than ten lines of instructions. Two examples covering different scenarios make drift nearly impossible. Zero examples means Claude improvises every run. This is the number one thing to improve in most Skills.
+
+**Constraints matter more than instructions.** Telling Claude what NOT to do is often more effective than telling it what to do. "Never use bullet points" is clearer than "write in prose." Negative constraints create hard boundaries. Positive instructions create soft suggestions.
+
+**The description field is a trigger.** The `description` in frontmatter isn't a label. It's what Claude uses to decide whether to activate the Skill. Vague description = fires when it shouldn't or doesn't fire when it should. It should contain the words a user would actually say when they need this Skill.
+
+**Globs define automatic activation.** If the Skill should trigger on specific file types or names, globs need to be set. Empty globs = manual-only activation. Neither is wrong but the builder should be intentional.
+
+**Edge case handling separates good from great.** What happens when input is empty? Wrong format? When the task doesn't apply? A Skill that only handles the happy path confuses users the first time reality gets messy.
+
+**Progressive disclosure matters.** Front-load the most important instructions. Claude reads top to bottom and earlier instructions carry more weight. Critical rules first, details second.
+
+**Show the format, don't describe it.** Describing an output format in words ("use bullet points with headers") produces less consistent results than showing the exact template you want Claude to mirror. The formatting of your prompt influences the formatting of Claude's response.
+
+**Source:** Anthropic prompt engineering docs — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview
+
+## What Makes a Great Claude Code Project
+
+**Environment variables for secrets. Always.** API keys hardcoded in source code is the number one security mistake. Keys go in a `.env` file listed in `.gitignore`. Code reads them with `os.environ.get()` or equivalent. This isn't optional for anything shared.
+
+**A README that tells someone how to run it.** What this does (one paragraph). How to set it up (numbered steps). What environment variables are needed. How to run it. What to expect. If someone clones and doesn't know what to do, the project isn't shareable.
+
+**Error handling isn't extra credit.** What happens when the API is down? File doesn't exist? Input is empty? Every external call needs error handling. Error messages should tell the user what went wrong in plain language, not just crash silently.
+
+**Hardcoded paths break everywhere else.** `/Users/jake/Documents/` works on Jake's laptop only. Use relative paths, command-line arguments, or config files for file system references.
+
+**Dependencies must be declared.** `requirements.txt` (Python) or `package.json` (Node) tells someone what to install. Without it, they're guessing. Pin versions when it matters.
+
+**Output should be structured and usable.** Raw LLM text that needs manual parsing isn't a finished product. Structure the output (JSON, CSV, formatted markdown) so the next step is clear.
+
+**Parse your LLM responses.** If the project calls Claude's API and uses the raw text response without parsing it into structured data, the project is half-built. The AI call is step one. Turning that into something usable is step two.
+
+**One thing done well beats five things half done.** A focused tool that does one job reliably is more valuable than an ambitious tool that does five jobs poorly.
+
+**Source:** Anthropic Claude Code docs — docs.anthropic.com/en/docs/claude-code and standard software engineering practices (error handling, dependency management, environment variables, documentation).
+
+## What Makes a Great Cowork
+
+**Specific inputs produce consistent outputs.** "Help me with marketing" gives Claude no anchor. "Take this blog post URL and generate 5 LinkedIn variations, each under 280 characters, with a different hook" gives Claude everything it needs.
+
+**Output format should be locked down.** If output shifts structure between runs, the user reformats manually, eating the time savings. Define the exact format: headers, sections, length, structure. Show a template, don't describe one.
+
+**The task must be genuinely repeatable.** Best Cowork tasks happen at least weekly. One-time tasks rarely justify the setup cost. The math should clearly favor automation.
+
+**Instructions must survive someone else using them.** If only the builder knows what "clean up the notes" means, the Cowork breaks when someone else tries it. Instructions need to be explicit enough for a stranger.
+
+**Constraints are just as important as instructions.** "Never add information that wasn't in the original input" or "don't include a greeting" prevents Claude from adding its default filler. Without constraints, output drifts toward Claude's natural patterns.
+
+**Voice and tone need anchoring, not adjectives.** "Professional but engaging" means nothing. A sample of the builder's actual writing or specific style rules ("short sentences, no jargon, first person") gives Claude something concrete to match.
+
+**Edge cases need handling.** What happens when the input is shorter than expected? Longer? A different format? When the task doesn't quite apply to this particular input? A Cowork that only handles the ideal input will frustrate users by the third run. Even basic handling like "if the input is under 100 words, produce a shorter output" goes a long way.
+
+**If there are external integrations, they need fallback plans.** This doesn't apply to every Cowork, but when one connects to Notion, Slack, or any external service, plan for API changes, rate limits, and auth expiration. Note this in the findings if relevant, but don't penalize a Cowork that doesn't use integrations.
+
+**Source:** Anthropic prompt engineering docs — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview and Cowork documentation.
+
+## Universal Principles
+
+**The best V1 is a small V1.** Ship the core. Expand later. Trying to build everything at once is how projects stall.
+
+**If you only tested with one example, you haven't tested.** Real usage is messy. Test with the weirdest input you can think of.
+
+**Documentation is not optional.** Even a few lines explaining what this does and how to use it. Future you will thank present you.
+
+**Every build teaches something.** Even a project that scores 25/100 is a learning experience. The score is a starting point, not a judgment.

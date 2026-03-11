@@ -1,0 +1,78 @@
+---
+description: Gut Checc Gotchas — Specific traps that catch new builders. Gut Checc actively hunts for these during every stress test.
+globs:
+---
+
+# Gut Checc — Gotchas
+
+These are the specific patterns that trip up new builders over and over. During every stress test, scan for these actively. If you find one, it's a finding. These aren't theoretical. Every single one of these has caused real problems for real builders.
+
+## Skill Gotchas
+
+**🔴 P1 — "Be professional" and friends.** Vague adjective instructions with no definition. "Be concise." "Be helpful." "Be clear." These tell Claude nothing. It interprets them differently every single run. Look for any rule that's just an adjective without a concrete definition or example of what that adjective means in practice.
+
+**🔴 P1 — Zero examples.** No input/output examples anywhere in the Skill. This is the single most common new builder mistake. Without examples, every instruction is open to interpretation. One example cuts drift in half. Two examples covering different scenarios nearly eliminate it.
+
+**🔴 P1 — Output format described but never shown.** The Skill says "give a summary and bullet points" but never shows what that actually looks like. Describing format in words produces inconsistent results. Showing the exact template produces consistent results. Look for any output section that tells Claude what to include but doesn't show the structure.
+
+**🟡 P2 — No constraints, only instructions.** The Skill tells Claude what to DO but never what NOT to do. No banned behaviors. No boundaries. Without constraints, Claude drifts into its default patterns. Things like "never use bullet points" or "don't include a greeting" are often more powerful than positive instructions.
+
+**🟡 P2 — Happy path only.** The Skill assumes perfect input every time. What happens when input is empty? Unusually long? In a different format? Contains content that doesn't match the expected use case? If the Skill doesn't address at least the most obvious edge cases, users will hit confusion on their second or third use.
+
+**🟡 P2 — Vague description field.** The description in frontmatter is generic or reads like a tagline instead of a trigger phrase. "A helpful writing assistant" doesn't help Claude decide when to activate. "Cleans up raw meeting notes into structured summaries with action items" does.
+
+**🟡 P2 — Empty globs with no explanation.** Globs are blank. Maybe that's intentional (manual-only Skill). Maybe the builder didn't know globs exist. Either way, if the Skill should trigger on specific file types, this is a gap.
+
+**🟡 P2 — Overengineered complexity.** The Skill has layers, matrices, classification systems, and enterprise terminology that makes it look impressive but actually hurts usability. More rules doesn't mean better rules. If the Skill is so complex that Claude struggles to follow it consistently or a user can't understand what it does by skimming, complexity is the problem not the solution. Look for: corporate jargon in the description, multi-layer architectures, classification matrices, and Skills that try to handle every possible scenario instead of doing one thing well.
+
+**🟢 P3 — Instructions not front-loaded.** The most important rules are buried below less critical ones. Claude weighs earlier instructions more heavily. Critical rules should come first.
+
+**🟢 P3 — No version or changelog.** The Skill will evolve. Without a version note or brief changelog, the builder (or anyone using it) has no way to track what changed and when.
+
+## Claude Code Project Gotchas
+
+**🔴 P1 — API key in source code.** Hardcoded API keys visible in the code. `api_key="sk-ant-..."` or similar. This is an automatic Security score of 0. Keys get leaked the moment the code is shared anywhere. Look for any string that looks like an API key, token, or secret directly in the code.
+
+**🔴 P1 — Hardcoded file paths.** `/Users/somebody/Documents/file.txt` or any absolute path with a username in it. Works on one machine. Breaks everywhere else. Look for any path that starts with `/Users/`, `/home/`, `C:\Users\`, or contains what looks like a personal directory.
+
+**🔴 P1 — No error handling on API calls.** The code calls an external API (Claude, OpenAI, any service) with no try/except or error handling. If the API is down, rate limited, or returns unexpected data, the entire project crashes with an unhelpful error.
+
+**🟡 P2 — Raw LLM output never parsed.** The project calls Claude's API and uses `message.content[0].text` directly without parsing it into structured data. The AI response is treated as a finished product when it's actually raw material that needs processing. Look for TODO comments about parsing — they confirm the builder knew this was needed but didn't get to it.
+
+**🟡 P2 — No README or incomplete README.** The project either has no README at all or has one that doesn't explain how to set up and run it. Without this, nobody else can use the project. Look for missing setup instructions, missing dependency information, or missing "how to run" sections.
+
+**🟡 P2 — No requirements file.** Python project with no `requirements.txt`. Node project with no `package.json`. The dependencies exist but aren't declared anywhere. Someone cloning this has to guess what to install.
+
+**🟡 P2 — The TODO graveyard.** Multiple TODO comments for critical features. `# TODO: add error handling` `# TODO: parse results` `# TODO: make configurable`. A couple TODOs are normal. A project where core functionality is TODO'd isn't finished — it's a sketch.
+
+**🟡 P2 — Overwrites without asking.** The project writes to files without checking if they exist. `open("output.csv", "w")` overwrites previous results silently. Users lose data they didn't know they should have saved.
+
+**🟢 P3 — No .gitignore.** The project has no .gitignore file. When the builder pushes to GitHub, their .env file, __pycache__, node_modules, and other junk goes with it.
+
+**🟢 P3 — Model hardcoded.** The Claude model is hardcoded to a specific version. When that model is deprecated or a better one ships, the code needs manual updating. A config variable or environment variable makes this flexible.
+
+**🟢 P3 — No input validation.** The project accepts input without checking if it's valid, within expected size, or in the right format. Works fine with good input. Breaks or produces garbage with bad input.
+
+**🟢 P3 — Print statements as logging.** Using `print()` for status updates instead of proper logging. Works but makes it hard to debug issues or control verbosity later.
+
+## Cowork Gotchas
+
+**🔴 P1 — Task too vague to be repeatable.** The Cowork's task description is broad enough that Claude interprets it differently each time. "Help with content" vs "Take this blog post and generate 5 LinkedIn variations under 280 characters each." If you can't describe the exact input and exact output, the task isn't defined enough.
+
+**🟡 P2 — Output format not locked.** The Cowork produces output but the format drifts between runs. Sometimes markdown headers, sometimes bold text. Sometimes 3 paragraphs, sometimes 5. If the output isn't structurally consistent, the user has to manually reformat every time.
+
+**🟡 P2 — No handling for empty or partial results.** What happens when the input doesn't contain what the Cowork expects? If it's looking for action items in meeting notes and there aren't any, does it say so clearly or just skip the section silently?
+
+**🟡 P2 — Automation that takes longer than manual.** The Cowork exists but by the time you set up the input, run it, and verify the output, you could have just done the task yourself. This isn't always obvious to new builders. Look at the task and honestly assess the time math.
+
+**🟢 P3 — Only the builder understands the context.** The Cowork uses shorthand, internal terminology, or references that only make sense to the builder. "Clean up the weekly notes the way I like them" means nothing to anyone else.
+
+**🟢 P3 — No instructions for what to do with the output.** The Cowork generates something but there's no guidance on what happens next. Does it go in a doc? Get posted somewhere? Feed into another process? The output exists in a vacuum.
+
+## Universal Gotchas (All Modes)
+
+**🟡 P2 — Trying to do everything at once.** The project attempts 5+ things when doing 1-2 things well would be more useful. Scope ambition is great. Scope discipline is better.
+
+**🟡 P2 — Tested once on one example.** The builder ran it once, it worked, and they called it done. Real usage brings messy, unexpected, varied input. One successful test proves almost nothing.
+
+**🟢 P3 — No documentation at all.** Not even a sentence explaining what this does. The builder knows. Nobody else does.
