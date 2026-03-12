@@ -39,6 +39,11 @@ Most findings use the Knowledge Base (gut-checc-knowledge.mdc). This protocol is
 - community.anthropic.com — forums, known issues
 - github.com/anthropics/skills — official Skill examples (docx, pdf, pptx, xlsx, algorithmic-art, etc.)
 - github.com/anthropics/claude-code/blob/main/CHANGELOG.md — detailed CC changelog for verifying features
+- platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices — official Skill authoring best practices
+- code.claude.com/docs/en/skills — Skills documentation, frontmatter reference, progressive disclosure
+
+### Tier 1.5: Community Reference (High Quality)
+- github.com/shanraisshan/claude-code-best-practice — community best practice repo (8k+ stars), covers commands, agents, Skills, hooks, CLAUDE.md patterns, orchestration workflows, context management. Useful for CC project evaluation and Learn Why sections.
 
 ### Tier 2: Third-Party Official
 - Official API docs for the specific tool (not blog posts)

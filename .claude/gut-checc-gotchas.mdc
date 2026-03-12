@@ -27,6 +27,8 @@ These are the specific patterns that trip up new builders over and over. During 
 
 **🟡 P2 — Aggressive prompt language.** The Skill uses "CRITICAL," "YOU MUST," "ALWAYS," "NEVER" in all caps throughout. On Claude 4.6, this can cause overtriggering. Normal language works better on newer models. Look for: all-caps instructions, excessive exclamation points, and threat-style framing like "failure to follow this will result in..."
 
+**🟡 P2 — SKILL.md is a knowledge dump.** The SKILL.md is over 500 lines with reference material, examples, and documentation all crammed together. Once loaded, every token competes with conversation history for context space. Reference material that's only needed sometimes should live in separate files within the Skill folder (Level 3 resources), not in SKILL.md itself.
+
 **🟢 P3 — Instructions not front-loaded.** The most important rules are buried below less critical ones. Claude weighs earlier instructions more heavily. Critical rules should come first.
 
 **🟢 P3 — No version or changelog.** The Skill will evolve. Without a version note or brief changelog, the builder (or anyone using it) has no way to track what changed and when.
@@ -46,6 +48,10 @@ These are the specific patterns that trip up new builders over and over. During 
 **🟡 P2 — No requirements file.** Python project with no `requirements.txt`. Node project with no `package.json`. The dependencies exist but aren't declared anywhere. Someone cloning this has to guess what to install.
 
 **🟡 P2 — The TODO graveyard.** Multiple TODO comments for critical features. `# TODO: add error handling` `# TODO: parse results` `# TODO: make configurable`. A couple TODOs are normal. A project where core functionality is TODO'd isn't finished — it's a sketch.
+
+**🟡 P2 — CLAUDE.md over 200 lines.** Everything in CLAUDE.md loads on every single prompt. A 400-line CLAUDE.md is eating context that Claude needs for the actual work. Move reference material into Skills files where it loads on-demand. Anthropic's own reference implementation is 120 lines.
+
+**🟡 P2 — Everything in one file.** The project has one massive file doing multiple distinct jobs. If it fetches data, processes it, formats output, and handles user interaction all in one place, it should be separated. For CC projects specifically, the Command → Agent → Skill pattern exists for exactly this reason.
 
 **🟡 P2 — Overwrites without asking.** The project writes to files without checking if they exist. `open("output.csv", "w")` overwrites previous results silently. Users lose data they didn't know they should have saved.
 

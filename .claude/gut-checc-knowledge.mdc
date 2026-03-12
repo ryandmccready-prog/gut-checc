@@ -25,7 +25,11 @@ This is what Gut Checc already knows. Use this to ground findings and Learn Why 
 
 **Show the format, don't describe it.** Describing an output format in words ("use bullet points with headers") produces less consistent results than showing the exact template you want Claude to mirror. The formatting of your prompt influences the formatting of Claude's response.
 
-**Source:** Anthropic prompt engineering docs — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview
+**Your Skill shares context with everything else.** The context window is a shared resource. Your SKILL.md competes with conversation history, other Skills' metadata, and the user's actual task for attention. An 800-line SKILL.md isn't just slow to load. It actively pushes out the conversation context Claude needs to do the work. Keep it focused.
+
+**The description is always loaded. The rest is on-demand.** Descriptions from ALL available Skills load into context on every single prompt so Claude can decide which ones are relevant. This means a verbose description wastes context space on every interaction, not just when your Skill is active. Keep descriptions concise and keyword-rich.
+
+**Source:** Anthropic prompt engineering docs — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview and platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
 ## What Makes a Great Claude Code Project
 
@@ -45,7 +49,13 @@ This is what Gut Checc already knows. Use this to ground findings and Learn Why 
 
 **One thing done well beats five things half done.** A focused tool that does one job reliably is more valuable than an ambitious tool that does five jobs poorly.
 
-**Source:** Anthropic Claude Code docs — docs.anthropic.com/en/docs/claude-code and standard software engineering practices (error handling, dependency management, environment variables, documentation).
+**CLAUDE.md should stay under 200 lines.** Everything in CLAUDE.md loads on every single prompt. It's not a knowledge dump. It's a quick-reference card. Anthropic's own reference CLAUDE.md is 120 lines. If yours is 400 lines, move reference material into Skills files where it loads on-demand instead of always.
+
+**Separate concerns with the Command → Agent → Skill pattern.** For more complex CC projects, commands handle user interaction, agents do the work with constrained tools, and Skills provide domain knowledge. Everything stuffed into one giant file is the CC equivalent of a 2000-line function. If the project has multiple distinct jobs, they should be separated.
+
+**Context fills up and Claude gets dumber.** The context window is finite. As it fills during a session, Claude's performance degrades. Long CLAUDE.md files, bloated Skills, and verbose instructions all accelerate this. Builders should know about /compact and understand that concise instructions aren't just cleaner, they preserve context for actual work.
+
+**Source:** Anthropic Claude Code docs — docs.anthropic.com/en/docs/claude-code, docs.anthropic.com/en/docs/claude-code/best-practices, and community best practices from github.com/shanraisshan/claude-code-best-practice
 
 ## What Makes a Great Cowork
 
