@@ -27,6 +27,7 @@ your-project/
     gut-checc-knowledge.mdc
     gut-checc-gotchas.mdc
     gut-checc-research.mdc
+    gut-checc-example-report.md
     settings.local.json
   CLAUDE.md
 ```
@@ -72,9 +73,10 @@ Run Gut Checc again after making changes. It finds your previous report automati
 |------|-------------|
 | `gut-checc-core.mdc` | The orchestrator. Voice, flow, output format, how a run works. |
 | `gut-checc-scoring.mdc` | Scoring rubrics for all three modes. Point ranges for each category. |
-| `gut-checc-knowledge.mdc` | Built-in knowledge base. What good looks like for Skills, CC projects, and Cowork. |
+| `gut-checc-knowledge.mdc` | Built-in knowledge base. What good looks like for Skills, CC projects, and Cowork. Includes Claude 4.6 patterns, progressive disclosure, and context management. |
 | `gut-checc-gotchas.mdc` | Specific traps new builders fall into. Gut Checc hunts for these on every run. |
 | `gut-checc-research.mdc` | When and how to pull external docs. Only kicks in when the project uses third-party tools. |
+| `gut-checc-example-report.md` | A real completed report used as a reference for output quality and consistency. |
 | `settings.local.json` | Pre-configures web search and Anthropic docs permissions. |
 | `CLAUDE.md` | Tells Claude Code what this project is and where to find the rules. |
 
@@ -93,4 +95,4 @@ New builders shipping with Claude's CC ecosystem who want honest feedback before
 
 Ryan McCready / ThirdHat
 
-v1.0
+v1.2
