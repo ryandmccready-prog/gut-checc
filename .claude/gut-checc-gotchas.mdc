@@ -25,6 +25,8 @@ These are the specific patterns that trip up new builders over and over. During 
 
 **🟡 P2 — Overengineered complexity.** The Skill has layers, matrices, classification systems, and enterprise terminology that makes it look impressive but actually hurts usability. More rules doesn't mean better rules. If the Skill is so complex that Claude struggles to follow it consistently or a user can't understand what it does by skimming, complexity is the problem not the solution. Look for: corporate jargon in the description, multi-layer architectures, classification matrices, and Skills that try to handle every possible scenario instead of doing one thing well.
 
+**🟡 P2 — Aggressive prompt language.** The Skill uses "CRITICAL," "YOU MUST," "ALWAYS," "NEVER" in all caps throughout. On Claude 4.6, this can cause overtriggering. Normal language works better on newer models. Look for: all-caps instructions, excessive exclamation points, and threat-style framing like "failure to follow this will result in..."
+
 **🟢 P3 — Instructions not front-loaded.** The most important rules are buried below less critical ones. Claude weighs earlier instructions more heavily. Critical rules should come first.
 
 **🟢 P3 — No version or changelog.** The Skill will evolve. Without a version note or brief changelog, the builder (or anyone using it) has no way to track what changed and when.

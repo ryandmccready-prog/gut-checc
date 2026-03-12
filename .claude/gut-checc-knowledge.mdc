@@ -76,3 +76,37 @@ This is what Gut Checc already knows. Use this to ground findings and Learn Why 
 **Documentation is not optional.** Even a few lines explaining what this does and how to use it. Future you will thank present you.
 
 **Every build teaches something.** Even a project that scores 25/100 is a learning experience. The score is a starting point, not a judgment.
+
+## Claude 4.6 Specific Patterns
+
+**Aggressive prompt language can backfire on newer models.** Claude 4.6 is more responsive to system prompts than older models. Skills that say "CRITICAL: YOU MUST use this tool" or "ALWAYS do X without exception" may overtrigger. On newer models, normal language like "Use this tool when..." works better than screaming in caps. If a Skill was written for an older model and uses aggressive language throughout, it might produce worse results on 4.6.
+
+**System prompts carry more weight now.** Claude 4.6 follows system-level instructions more closely. This means well-structured Skills perform better, but it also means badly structured Skills fail harder. Instructions that conflict with each other are more likely to cause problems than on older models.
+
+**Parallel tool execution is default behavior.** Claude 4.6 will call multiple tools simultaneously when possible. Skills and Claude Code projects that assume sequential execution may see unexpected behavior.
+
+**Source:** Anthropic Claude 4.6 best practices — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices
+
+## How Skills Actually Load (Progressive Disclosure)
+
+Skills use a three-level loading system. Understanding this helps builders structure their Skills for performance.
+
+**Level 1: Metadata (~100 tokens).** Claude reads the name and description from frontmatter to decide if the Skill is relevant. This happens for ALL available Skills on every prompt. This is why the description field matters so much. It's not a label. It's a filter.
+
+**Level 2: Full SKILL.md (<5k tokens).** When Claude decides the Skill is relevant, it loads the full instructions. This is where all the rules, constraints, and examples live. Keeping this focused and under 500 lines matters for performance.
+
+**Level 3: Bundled resources (as needed).** Scripts, reference files, and assets only load when the Skill's instructions reference them. Large reference files should live here, not in SKILL.md.
+
+**The implication for builders:** Don't stuff everything into SKILL.md. If a section is reference material that's only needed sometimes, move it to a separate file in the Skill folder. If SKILL.md is over 500 lines, ask if everything in it needs to load on every run.
+
+**Source:** Anthropic Skills documentation — support.claude.com/en/articles/12512198-how-to-create-custom-skills and github.com/anthropics/skills
+
+## Reference Skills
+
+When Gut Checc needs to show a builder what "good" looks like for a Skill, reference Anthropic's official Skills as benchmarks:
+
+- **github.com/anthropics/skills/tree/main/skills** — Production Skills built by Anthropic. The docx, pdf, pptx, and xlsx Skills are the most polished examples of how to structure instructions, handle edge cases, and use progressive disclosure.
+- **The doc-coauthoring Skill** is a strong example of a process-oriented Skill with stages and clear exit criteria.
+- **The algorithmic-art and canvas-design Skills** show how to handle creative/subjective tasks with structure.
+
+These aren't templates to copy. They're benchmarks for what "good" looks like at the highest level.

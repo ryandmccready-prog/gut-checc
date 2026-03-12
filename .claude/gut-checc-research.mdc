@@ -29,15 +29,22 @@ Most findings use the Knowledge Base (gut-checc-knowledge.mdc). This protocol is
 - docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/multishot-prompting — examples and few-shot
 - docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices — latest best practices
 - docs.anthropic.com/en/docs/claude-code — Claude Code specific
+- docs.anthropic.com/en/docs/claude-code/best-practices — CC patterns, context management, CLAUDE.md structure
 - docs.anthropic.com/en/docs/build-with-claude/tool-use — MCP and tools
+- docs.anthropic.com/en/docs/agents-and-tools/agent-skills/quickstart — Skills API and usage
 - docs.anthropic.com/en/api — API reference
+- docs.anthropic.com/en/release-notes/claude-code — Claude Code changelog, new features, deprecations
 - support.anthropic.com — help center
+- support.claude.com/en/articles/12512198-how-to-create-custom-skills — official Skill creation guide
 - community.anthropic.com — forums, known issues
+- github.com/anthropics/skills — official Skill examples (docx, pdf, pptx, xlsx, algorithmic-art, etc.)
+- github.com/anthropics/claude-code/blob/main/CHANGELOG.md — detailed CC changelog for verifying features
 
 ### Tier 2: Third-Party Official
 - Official API docs for the specific tool (not blog posts)
 - GitHub repos for open source packages (check issues)
 - Changelog or release notes for breaking changes
+- agentskills.io — the cross-platform Agent Skills standard. When a Skill uses Claude-only patterns that won't work in Cursor, Codex, or Gemini CLI, this is where to check compatibility
 
 ### Tier 3: Community (use carefully)
 - High-star GitHub repos using similar approaches
